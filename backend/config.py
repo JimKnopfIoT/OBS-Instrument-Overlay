@@ -8,15 +8,15 @@ Modul-Import gelesen.
 """
 
 # ---------- Lab-Geräte (LAN) ----------
-DMM = ("192.168.10.45", 5025)      # Keithley DMM7510  (TCP/SCPI)
-BB3 = ("192.168.10.78", 5025)      # Envox BB3 Ch1 + Ch2 (TCP/SCPI, gleiche Verbindung)
-KEL = ("192.168.10.83", 18190)     # Korad KEL103       (UDP, lokaler Bind auf 18190 nötig)
+DMM = ("192.168.0.45", 5025)      # Keithley DMM7510  (TCP/SCPI)
+BB3 = ("192.168.0.78", 5025)      # Envox BB3 Ch1 + Ch2 (TCP/SCPI, gleiche Verbindung)
+KEL = ("192.168.0.83", 18190)     # Korad KEL103       (UDP, lokaler Bind auf 18190 nötig)
 
 # ---------- USB-Tester (BLE) ----------
 # Im Overlay-Panel "USB" angezeigt — echter USB-Output hinter dem PD-Modul.
 # Aktuell aktiv: Fnirsi C1. Bei Wechsel auf FNB-C2 nur die MAC tauschen
 # (Protokoll ist identisch: FNB48-Familie inklusive C1/FNB-C2).
-C1_MAC      = "98:DA:B0:02:34:5E"
+C1_MAC      = "98:DA:B0:02:32:D6"
 C1_NOTIFY_U = "0000ffe4-0000-1000-8000-00805f9b34fb"
 C1_WRITE_U  = "0000ffe9-0000-1000-8000-00805f9b34fb"
 
