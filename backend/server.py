@@ -4,11 +4,11 @@
 Pollt Lab-Instrumente parallel und broadcastet die Werte per WebSocket
 an das HTML-Overlay (../overlay/overlay.html).
 
-  DMM7510      192.168.10.45:5025   TCP/SCPI
-  BB3 Ch1      192.168.10.78:5025   TCP/SCPI  → Display "bb3a"
-  BB3 Ch2      192.168.10.78:5025   TCP/SCPI  → intern "bb3b_raw" (Telemetrie)
-  KEL103       192.168.10.83:18190  UDP  (lokaler Bind auf 18190 nötig!)
-  Fnirsi C1    BLE 98:DA:B0:02:34:5E         → Display "bb3b" (USB-Output)
+  DMM7510      192.168.0.45:5025   TCP/SCPI
+  BB3 Ch1      192.168.0.78:5025   TCP/SCPI  → Display "bb3a"
+  BB3 Ch2      192.168.0.78:5025   TCP/SCPI  → intern "bb3b_raw" (Telemetrie)
+  KEL103       192.168.0.83:18190  UDP  (lokaler Bind auf 18190 nötig!)
+  Fnirsi C1    BLE 98:DA:B0:02:31:D6         → Display USB-Output
 """
 import asyncio
 import http.server
