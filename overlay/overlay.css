@@ -1,0 +1,254 @@
+/* ============================================================
+   Alle hier definierten CSS-Variablen werden von overlay.js zur
+   Laufzeit aus config.js überschrieben. Direkt in CSS editieren
+   ist nur sinnvoll, wenn du dauerhaft andere Defaults willst.
+   ============================================================ */
+:root {
+  --bg:                #1a1a1a;
+  --bg-screen:         #000;
+  --col-mode:          #c89030;
+  --col-v:             #5577ee;
+  --col-a:             #b89820;
+  --col-sub:           #6a7a7c;
+  --col-label:         #5577ee;
+  --col-screen-border: #2a2a2a;
+  --col-offline:       #cc6666;
+
+  --font-family:       "Roboto Mono", "Consolas", "Menlo", monospace;
+  --fs-value:          22px;
+  --fs-mode:           22px;
+  --fs-mode-single:    22px;
+  --fs-label:          22px;
+  --fs-unit:           0.85em;
+  --fw-value:          700;
+  --fw-mode:           700;
+  --fw-label:          700;
+  --letter-label:      1px;
+
+  --graph-height:      48px;
+  --panel-gap:         6px;
+  --panel-pad-x:       6px;
+  --mode-col-width:    100px;
+  --value-col-width:   130px;
+  --col-gap:           10px;
+  --min-width:         1500px;
+  --border-radius:     4px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  font-family: var(--font-family);
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+#bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--panel-gap);
+  background: var(--bg);
+  padding: 0 10px;            /* kein vertikales Padding — Text sitzt direkt am oberen + unteren Rand */
+  width: max-content;
+  min-width: var(--min-width);
+  border-radius: var(--border-radius);
+}
+
+/* Panel = 3x3 Grid: col1=mode, col2=value, col3=graph; row1=V, row2=A, row3=label
+   Graph spannt Row 1-2, Label volle Panel-Breite in Row 3. */
+.panel {
+  display: grid;
+  grid-template-columns: var(--mode-col-width) var(--value-col-width) 1fr;
+  grid-template-rows: auto auto auto;
+  column-gap: var(--col-gap);
+  row-gap: 0;
+  padding: 0 var(--panel-pad-x);
+  min-width: 0;
+  align-items: start;
+  position: relative;     /* Anker für absolut positionierten Graph */
+}
+
+.row1 { grid-row: 1; }
+.row2 { grid-row: 2; }
+
+.mode {
+  grid-column: 1;
+  font-weight: var(--fw-mode);
+  font-size: var(--fs-mode);
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+.mode-v { color: var(--col-v); }
+.mode-a { color: var(--col-a); }
+.mode-single {
+  color: var(--col-mode);
+  font-size: var(--fs-mode-single);
+  letter-spacing: 1px;
+}
+
+.value {
+  grid-column: 2;
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--fw-value);
+  font-size: var(--fs-value);
+  line-height: 1;
+  white-space: nowrap;
+}
+.value.v { color: var(--col-v); }
+.value.a { color: var(--col-a); }
+
+/* BB3 CH1: Werte 62 px nach links */
+.panel[data-id="bb3a"] .value {
+  position: relative;
+  left: -62px;
+}
+
+/* KEL103: Werte näher am Graph (mittlerer Shift) */
+.panel[data-id="kel"] .value {
+  position: relative;
+  left: -40px;
+}
+
+/* USB: Werte nach rechts schieben, damit sie den Aux-Text (D+/D-) im Mode-Cell
+   nicht überdecken. */
+.panel[data-id="bb3b"] .value {
+  position: relative;
+  left: 10px;
+}
+
+/* DMM7510: Werte 30 px nach links (V-Unit sitzt damit weiter rechts und näher
+   an der linken Graph-Kante) */
+.panel[data-id="dmm"] .value {
+  position: relative;
+  left: -30px;
+}
+
+/* BB3 CH1 + KEL103: Graph 120 px nach links verbreitert (rechte Kante fix) */
+.panel[data-id="bb3a"] .graph,
+.panel[data-id="kel"]  .graph {
+  width: 252px;        /* 132 + 120 */
+}
+
+/* USB-Panel: Graph etwas schmaler, damit links D+/D- in der Mode-Spalte Platz haben. */
+.panel[data-id="bb3b"] .graph {
+  width: 200px;
+}
+
+/* DMM7510: Graph etwas schmaler, damit zwischen dem "V" der Werte-Zeile
+   und der Graph-Linken-Kante etwas mehr Luft ist. */
+.panel[data-id="dmm"] .graph {
+  width: 165px;
+}
+.value.sub {
+  color: var(--col-sub);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* DMM-Row 2 unsichtbar aber Höhe wird beibehalten — DMM-Panel bleibt 90 px wie BB3.
+   "Shorted" soll linksbündig mit Diode und DMM7510 stehen → grid-column 1, left-aligned */
+.panel[data-id="dmm"] .value.sub {
+  visibility: hidden;
+  font-size: var(--fs-value);
+  font-weight: var(--fw-value);
+  grid-column: 1 / 3;     /* Cols 1+2 statt nur Col 2 */
+  left: 0;                /* die -30 px der anderen Werte nicht erben */
+  text-align: left;
+}
+.panel[data-id="dmm"] .value.sub .num {
+  text-align: left;
+  min-width: 0;
+}
+
+/* DMM-Wertzeile: Flex mit Baseline-Alignment + flex-end packen Numbox und V
+   rechtsbündig auf gleicher Baseline. Bei langem Numbox (z.B. „00.0002210" im
+   Diode-Mode) wandert der Numbox-Inhalt nach links über die Zellgrenze raus,
+   das V bleibt fest am rechten Cell-Rand. */
+.panel[data-id="dmm"] .value.v {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+}
+.panel[data-id="dmm"] .value.v .numbox {
+  margin-right: 8px;      /* Abstand Numbox-rechts → V-links */
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+.panel[data-id="dmm"] .value.v .unit {
+  margin-left: 0;
+  flex: 0 0 auto;
+}
+
+/* Im Diode-Mode bei |Wert| < 0.05 V: mittlere Zeile zeigt "Shorted" in rot */
+.panel[data-id="dmm"].shorted .value.sub {
+  visibility: visible;
+  color: #ff1a1a;
+}
+.num { display: inline-block; min-width: 4ch; text-align: right; }
+/* Fester Vorzeichen-Slot links vom Zahlenblock — Ziffernpositionen bleiben
+   identisch, egal ob "-" oder leer. */
+.sign { display: inline-block; width: 1ch; text-align: center; }
+.unit { margin-left: 6px; font-size: var(--fs-unit); opacity: 0.9; }
+
+/* Output OFF (BB3 OUTP? == 0): "OFF" in den Wertzeilen — dezent gedimmt.
+   CV/CC-Mode-Labels bleiben voll hell, weil das Gerät selbst eingeschaltet ist. */
+.panel.output-off .unit  { visibility: hidden; }
+.panel.output-off .value { opacity: 0.45; }
+
+/* Kleinere Zusatz-Info im Label (USB-Panel: Protokoll) — bleibt in derselben
+   Zeile als Label, ändert die Panel-Gesamthöhe nicht. */
+.label .extra {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  opacity: 0.75;
+  margin-left: 10px;
+}
+
+/* USB-Panel: D+/D- als kleine Aux-Anzeige in der Mode-Spalte nach V/A.
+   Blauer Farbton wie V-Werte, in Klammern. Margin so gewählt dass der Text
+   bündig unter "SDP 5V" im Label sitzt. */
+.panel[data-id="bb3b"] .mode .aux {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--col-v);
+  margin-left: 45px;
+}
+
+.graph {
+  /* Pixelgenau absolut positioniert — nicht im Grid-Flow */
+  position: absolute;
+  top: 2px;
+  right: 6px;                /* = panel-pad-x: bündig mit rechtem Panel-Rand */
+  width: 132px;              /* feste Breite (entspricht der 1fr-Berechnung) */
+  height: 86px;              /* feste Höhe (2 + 86 + 2 = 90 px Bar) */
+  display: block;
+  background: var(--bg-screen);
+  border: 1px solid var(--col-screen-border);
+  border-radius: 2px;
+}
+
+.label {
+  grid-column: 1 / 4;        /* volle Panel-Breite */
+  grid-row: 3;
+  color: var(--col-label);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-label);
+  line-height: 1;
+  letter-spacing: var(--letter-label);
+  text-align: left;
+  padding-top: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.panel.offline .label,
+body.disconnected .panel .label {
+  color: var(--col-offline);
+}

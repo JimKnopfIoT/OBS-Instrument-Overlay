@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Lab Overlay</title>
+<link rel="stylesheet" href="overlay.css?v={{VERSION}}">
+</head>
+<body>
+
+<div id="bar">
+
+  <!-- DMM7510: single mode in row 1 with V value -->
+  <div class="panel" data-id="dmm">
+    <div class="mode mode-single row1" id="dmm-mode">Diode</div>
+    <div class="value v row1"><span class="numbox"><span class="sign" id="dmm-sign"></span><span class="num" id="dmm-val">0.000</span></span><span class="unit" id="dmm-unit">V</span></div>
+    <canvas class="graph" id="dmm-g"></canvas>
+    <div class="value sub row2"><span class="num" id="dmm-sub">—</span></div>
+    <div class="label">DMM7510</div>
+  </div>
+
+  <!-- BB3 Ch1: CV in row 1, CC in row 2 — aligned with V and A -->
+  <div class="panel" data-id="bb3a">
+    <div class="mode mode-v row1" id="bb3a-mv">CV</div>
+    <div class="value v row1"><span class="num" id="bb3a-v">0.000</span><span class="unit">V</span></div>
+    <canvas class="graph" id="bb3a-g"></canvas>
+    <div class="mode mode-a row2" id="bb3a-ma">CC</div>
+    <div class="value a row2"><span class="num" id="bb3a-a">0.000</span><span class="unit">A</span></div>
+    <div class="label">BB3 Ch1 PSU</div>
+  </div>
+
+  <div class="panel" data-id="bb3b">
+    <div class="mode mode-v row1" id="bb3b-mv">V<span class="aux" id="bb3b-dp"></span></div>
+    <div class="value v row1"><span class="num" id="bb3b-v">0.000</span><span class="unit">V</span></div>
+    <canvas class="graph" id="bb3b-g"></canvas>
+    <div class="mode mode-a row2" id="bb3b-ma">A<span class="aux" id="bb3b-dn"></span></div>
+    <div class="value a row2"><span class="num" id="bb3b-a">0.000</span><span class="unit">A</span></div>
+    <div class="label">USB<span class="extra" id="bb3b-extra"></span></div>
+  </div>
+
+  <!-- KEL103: single mode in row 1 with V value -->
+  <div class="panel" data-id="kel">
+    <div class="mode mode-single row1" id="kel-mode">CC</div>
+    <div class="value v row1"><span class="num" id="kel-v">0.000</span><span class="unit">V</span></div>
+    <canvas class="graph" id="kel-g"></canvas>
+    <div class="value a row2"><span class="num" id="kel-a">0.000</span><span class="unit">A</span></div>
+    <div class="label">KEL103</div>
+  </div>
+
+</div>
+
+<script src="config.js?v={{VERSION}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/smoothie@1.36.1/smoothie.min.js"></script>
+<script src="overlay.js?v={{VERSION}}"></script>
+</body>
+</html>
