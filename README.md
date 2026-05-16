@@ -10,7 +10,8 @@ Since my programming knowledge is limited, I used Claude Code to help me create 
 The setup consists of a backend service that starts first. OBS then connects to it through a local WebSocket-based HTML interface, which is used as a browser source inside OBS. So far, Claude successfully connected not only my LAN-based instruments (Keithley DMM7510, Envox Bench Box 3, and Korad KEL103), but also the FNIRSI C1 USB meter over BLE.
 Adding SCPI-compatible devices is relatively easy. The well-known TestController application already includes configuration files for a wide range of instruments, which makes integrating additional hardware much simpler.
 
-##View
+#View
+
 <p align="center">
 <img src="Bildschirmfoto vom 2026-05-14 20-56-48.jpg" width=420"> 
 <img src="Bildschirmfoto vom 2026-05-15 18-46-12.jpg" width="420">
