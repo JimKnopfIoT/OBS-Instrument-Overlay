@@ -11,6 +11,6 @@ It's easy to add devices that are using SCPI commands. The well known TestContro
 
 View
 <p align="center">
-<img src="Bildschirmfoto vom 2026-05-14 20-56-48.jpg" width="320"> 
-<img src="Bildschirmfoto vom 2026-05-15 18-46-12.jpg" width="320">
+<img src="Bildschirmfoto vom 2026-05-14 20-56-48.jpg" width=420"> 
+<img src="Bildschirmfoto vom 2026-05-15 18-46-12.jpg" width="420">
 </p> 
