@@ -1,15 +1,16 @@
 # OBS-Instrument-Overlay
 Instrument overlay for OBS-Studio
 
-From time to time i repair some electronic stuff that find their way to my bench. I use different devices for examination the DUT. Most of my test gear has LAN connection and supports SCPI/LXI, some other devices support BT BLE like the Fnirsi C1. For documentation i usually use the web frontent of my devies to make screenshots with the readings. The downside is, for the same situation, i have to take several screenshots from different devices. Sometimes i record it using OBS. Recently i watched a video on YT from the guy called BordRev. He uses different tools for diagnosing but all of them using the same look. Very cool. 
+From time to time, I repair electronic stuff that end up on my workbench. For diagnostics and testing, I use various instruments and measurement tools. Most of my test gear supports LAN connectivity and SCPI/LXI, while some devices — like the FNIRSI C1 USB meter — use Bluetooth BLE.
 
-Because of a lack of programming knowledge, i let claude code do its magic in phyton/websocket/html/css programming to get it to work on my linux laptop with my special device setup in the same look. I let claude create a config file for setting color and device specific stuff.
+For documentation, I usually take screenshots from the web interfaces of my test-gear. The downside is that, for a single test setup, I often need multiple screenshots from different instruments. Sometimes I also record the process using OBS Studio.
+Recently, I watched a YouTube video by BordRev. He uses several diagnostic tools as well, but all of them share the same visual style and overlay design. I really liked that clean and unified look.
 
-There is a backend that has to be started first, then OBS starts and connects to it via websocket. It is a local html site that you can use in OBS. Claude managed not only to connect to my LAN devices (DMM7510, Envox Bench Box 3, Korad KEL103) but also to a Fnirsi C1 USB-Meter using BT BLE connection. 
+Since my programming knowledge is limited, I used Claude Code to help me create a solution using Python, WebSockets, HTML, and CSS. The system now runs on my Linux laptop and is tailored to my specific instrument setup. Claude also helped generate a configuration system for colors, layouts, and device-specific settings.
+The setup consists of a backend service that starts first. OBS then connects to it through a local WebSocket-based HTML interface, which is used as a browser source inside OBS. So far, Claude successfully connected not only my LAN-based instruments (Keithley DMM7510, Envox Bench Box 3, and Korad KEL103), but also the FNIRSI C1 USB meter over BLE.
+Adding SCPI-compatible devices is relatively easy. The well-known TestController application already includes configuration files for a wide range of instruments, which makes integrating additional hardware much simpler.
 
-It's easy to add devices that are using SCPI commands. The well known TestController-App has a folder containing settings for a wide range of devices.
-
-View
+##View
 <p align="center">
 <img src="Bildschirmfoto vom 2026-05-14 20-56-48.jpg" width=420"> 
 <img src="Bildschirmfoto vom 2026-05-15 18-46-12.jpg" width="420">
